@@ -1,3 +1,9 @@
+
+
+
+# Test REST API for Real Estate Application
+
+# Register User
 POST http://localhost:6969/api/users/register
 Content-Type: application/json
 
@@ -9,7 +15,7 @@ Content-Type: application/json
 }
 ###
 
-## Login 
+## Login user
 POST http://localhost:6969/api/users/login
 Content-Type: application/json
 
