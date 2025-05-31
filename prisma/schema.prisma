@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model inquiries {
+  id         Int       @id @default(autoincrement())
+  listing_id Int?
+  sender_id  Int?
+  message    String?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  status     String?   @default("pending") @db.VarChar(20)
+  listings   listings? @relation(fields: [listing_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      User?     @relation(fields: [sender_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model listings {
+  id          Int         @id @default(autoincrement())
+  title       String      @db.VarChar(255)
+  description String?
+  category    String      @db.VarChar(20)
+  price       Decimal     @db.Decimal(10, 2)
+  price_type  String      @db.VarChar(20)
+  address     Json
+  latitude    Float
+  longitude   Float
+  features    Json?
+  created_by  Int
+  is_featured Boolean?    @default(false)
+  status      String?     @default("pending") @db.VarChar(20)
+  views       Int?        @default(0)
+  expires_at  DateTime?   @db.Timestamp(6)
+  created_at  DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?   @default(now()) @db.Timestamp(6)
+  inquiries   inquiries[]
+  users       User        @relation(fields: [created_by], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  payments    payments[]
+  reports     reports[]
+}
+
+model payments {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  listing_id Int?
+  amount     Decimal?  @db.Decimal(10, 2)
+  method     String?   @db.VarChar(20)
+  status     String?   @default("pending") @db.VarChar(20)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  expires_at DateTime? @db.Timestamp(6)
+  listings   listings? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model reports {
+  id          Int       @id @default(autoincrement())
+  listing_id  Int?
+  reported_by Int?
+  reason      String?
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  status      String?   @default("open") @db.VarChar(20)
+  listings    listings? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       User?     @relation(fields: [reported_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model User {
+  id            Int         @id @default(autoincrement())
+  username      String      @db.VarChar(100)
+  email         String      @unique @db.VarChar(150)
+  password      String
+  phone         String?     @db.VarChar(20)
+  role          String?     @db.VarChar(20)
+  profile_image String?
+  is_verified   Boolean?    @default(false)
+  created_at    DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?   @default(now()) @db.Timestamp(6)
+  inquiries     inquiries[]
+  listings      listings[]
+  payments      payments[]
+  reports       reports[]
+
+  @@map("users") // Map to the "users" table in the database
+}
