@@ -15,12 +15,12 @@ model inquiries {
   message    String?
   created_at DateTime? @default(now()) @db.Timestamp(6)
   status     String?   @default("pending") @db.VarChar(20)
-  listings   listings? @relation(fields: [listing_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Listing    Listing?  @relation(fields: [listing_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   users      User?     @relation(fields: [sender_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model listings {
+model Listing {
   id          Int         @id @default(autoincrement())
   title       String      @db.VarChar(255)
   description String?
@@ -42,6 +42,8 @@ model listings {
   users       User        @relation(fields: [created_by], references: [id], onDelete: Cascade, onUpdate: NoAction)
   payments    payments[]
   reports     reports[]
+
+  @@map("listings") // Map to the "Listing" table in the database
 }
 
 model payments {
@@ -53,7 +55,7 @@ model payments {
   status     String?   @default("pending") @db.VarChar(20)
   created_at DateTime? @default(now()) @db.Timestamp(6)
   expires_at DateTime? @db.Timestamp(6)
-  listings   listings? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Listing    Listing?  @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users      User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -64,7 +66,7 @@ model reports {
   reason      String?
   created_at  DateTime? @default(now()) @db.Timestamp(6)
   status      String?   @default("open") @db.VarChar(20)
-  listings    listings? @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Listing     Listing?  @relation(fields: [listing_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users       User?     @relation(fields: [reported_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -81,7 +83,7 @@ model User {
   created_at    DateTime?   @default(now()) @db.Timestamp(6)
   updated_at    DateTime?   @default(now()) @db.Timestamp(6)
   inquiries     inquiries[]
-  listings      listings[]
+  Listing       Listing[]
   payments      payments[]
   reports       reports[]
 
