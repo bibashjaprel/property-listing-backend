@@ -1,5 +1,6 @@
-import express from 'express';
-import userRouter from './routes/user.route.js';
+import express from 'express'
+import userRouter from './routes/user.route.js'
+import listingRouter from './routes/listing.route.js'
 const app = express();
 import dotenv from 'dotenv';
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/api/users', userRouter);
+app.use('/api/listings', listingRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
