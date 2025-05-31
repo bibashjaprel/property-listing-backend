@@ -19,9 +19,19 @@ Content-Type: application/json
 }
 ###
 
+## Get user profile
+GET http://localhost:6969/api/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+###
+
+
 ## Listing routes
 
 GET http://localhost:6969/api/listings
+###
+
+GET http://localhost:6969/api/listings/1
 ###
 
 ## Create a new listing

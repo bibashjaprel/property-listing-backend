@@ -54,3 +54,23 @@ export const createListing = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
+export const singleListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const listing = await prisma.listing.findUnique({
+      where: { id: parseInt(id, 10) },
+    });
+
+    if (!listing) {
+      return res.status(404).json({ error: 'Listing not found' });
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    console.error('Error fetching listing:', error);
+    res.status(500).json({ error: 'Failed to fetch listing' });
+  }
+}
