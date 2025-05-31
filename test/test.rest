@@ -9,6 +9,7 @@ Content-Type: application/json
 }
 ###
 
+## Login 
 POST http://localhost:6969/api/users/login
 Content-Type: application/json
 
@@ -17,3 +18,34 @@ Content-Type: application/json
   "password": "securePassword"
 }
 ###
+
+## Listing routes
+
+GET http://localhost:6969/api/listings
+###
+
+## Create a new listing
+POST http://localhost:6969/api/listings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+
+{
+  "title": "3 BHK Apartment in Kathmandu",
+  "description": "Spacious 3 bedroom apartment in Lazimpat",
+  "category": "apartment",
+  "price": 15000000,
+  "price_type": "monthly",
+  "address": {
+    "city": "Kathmandu",
+    "street": "Lazimpat",
+    "house_no": "45A"
+  },
+  "latitude": 27.7172,
+  "longitude": 85.324,
+  "features": {
+    "parking": true,
+    "balcony": true,
+    "furnished": false
+  },
+  "expires_at": "2025-12-31T23:59:59Z"
+}
