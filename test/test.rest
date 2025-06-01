@@ -58,7 +58,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
 
 {
-  "title": "3 BHK Apartment in Kathmandu",
+  "title": "3 BHK Apartment in Jawalakel",
   "description": "Spacious 3 bedroom apartment in Lazimpat",
   "category": "apartment",
   "price": 15000000,
@@ -80,13 +80,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZ
 ###
 
 ## Update a listing
-PATCH http://localhost:6969/api/listings/1
+PATCH http://localhost:6969/api/listings/1009
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
 
 {
-  "title": "Updated 3 BHK Apartment in Kathmanduaaa",
-  "description": "Updated description for the spacious 3 bedroom apartment in Lazimpat",
+  "title": "Updated 4 BHK Apartment in Kathmanduaaa",
+  "description": "Updated description for the spacious 8 bedroom apartment in Lazimpat",
   "category": "apartment",
   "price": 16000000,
   "price_type": "monthly",
