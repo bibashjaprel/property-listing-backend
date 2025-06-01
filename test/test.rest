@@ -38,7 +38,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZ
 
 {
   "username": "bibasjaprel_updateds",
-  "role": "admin",
   "profile_image": "https://www.bibashjaprel.com.np/images/aboutsecphoto%20(2).jpg"
 }
 ###
