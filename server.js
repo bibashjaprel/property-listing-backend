@@ -1,6 +1,7 @@
 import express from 'express';
 import userRouter from './routes/user.route.js';
 import listingRouter from './routes/listing.route.js';
+import adminRouter from './routes/admin.route.js';
 import dotenv from 'dotenv';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRouter);
 app.use('/api/listings', listingRouter);
+app.use('/api/admin/', adminRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

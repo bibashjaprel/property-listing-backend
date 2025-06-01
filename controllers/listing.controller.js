@@ -77,64 +77,32 @@ export const singleListing = async (req, res) => {
 
 
 export const updateListing = async (req, res) => {
-  const { userId, role } = req.user;
+  const { userId } = req.user;
   const { id } = req.params;
 
   try {
     const listingId = parseInt(id, 10);
+    const listing = await prisma.listing.findUnique({ where: { id: listingId } });
 
-    const listing = await prisma.listing.findUnique({
-      where: { id: listingId },
-    });
-
-    if (!listing) {
-      return res.status(404).json({ error: 'Listing not found' });
+    if (!listing || listing.created_by !== userId) {
+      return res.status(403).json({ error: 'You can only update your own listings' });
     }
-
-    // Check if the user is admin or owner
-    if (role !== 'admin' && listing.created_by !== userId) {
-      return res.status(403).json({ error: 'You are not allowed to update this listing' });
-    }
-
-    const {
-      title,
-      description,
-      category,
-      price,
-      price_type,
-      address,
-      latitude,
-      longitude,
-      features,
-      expires_at,
-    } = req.body;
 
     const updatedListing = await prisma.listing.update({
       where: { id: listingId },
-      data: {
-        title,
-        description,
-        category,
-        price: price ? parseFloat(price) : undefined,
-        price_type,
-        address,
-        latitude: latitude ? parseFloat(latitude) : undefined,
-        longitude: longitude ? parseFloat(longitude) : undefined,
-        features,
-        expires_at: expires_at ? new Date(expires_at) : undefined,
-      },
+      data: req.body,
     });
 
     res.status(200).json({ message: 'Listing updated successfully', listing: updatedListing });
   } catch (error) {
-    console.error('Error updating listing:', error);
     res.status(500).json({ error: 'Failed to update listing' });
   }
 };
 
 
+
 export const deleteListing = async (req, res) => {
-  const { userId, role } = req.user;
+  const { userId } = req.user;
   const listingId = parseInt(req.params.id, 10);
 
   try {
@@ -146,19 +114,16 @@ export const deleteListing = async (req, res) => {
       return res.status(404).json({ error: 'Listing not found' });
     }
 
-    // Check if the user is an admin or the creator of the listing
-    if (role !== 'admin' && listing.created_by !== userId) {
-      return res.status(403).json({ error: 'You are not allowed to delete this listing' });
+    // Only allow deletion if user created the listing
+    if (listing.created_by !== userId) {
+      return res.status(403).json({ error: 'You can only delete your own listings' });
     }
 
-    await prisma.listing.delete({
-      where: { id: listingId },
-    });
+    await prisma.listing.delete({ where: { id: listingId } });
 
     res.json({ message: 'Listing deleted successfully' });
   } catch (err) {
-    console.error(err);
+    console.error('Error deleting listing:', err);
     res.status(500).json({ error: 'Server error' });
   }
 };
-
