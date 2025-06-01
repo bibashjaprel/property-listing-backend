@@ -98,3 +98,49 @@ export const userProfile = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch user profile' })
   }
 }
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.user.userId
+    const { username, email, phone, profile_image, role } = req.body
+
+    if (role) {
+      return res.status(403).json({ error: 'You are not allowed to change your role' })
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    })
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        username,
+        email,
+        phone,
+        profile_image
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        phone: true,
+        profile_image: true,
+        role: true,
+        is_verified: true,
+        created_at: true,
+        updated_at: true
+      }
+    })
+
+    res.json({ message: 'Profile updated successfully', user: updatedUser })
+  } catch (error) {
+    console.error('Error updating profile:', error)
+    res.status(500).json({ error: 'Failed to update profile' })
+  }
+}
+

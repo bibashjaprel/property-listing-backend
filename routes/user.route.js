@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
-import { createUser, loginUser, userProfile } from "../controllers/user.controller.js";
+import { createUser, loginUser, userProfile, updateUserProfile } from "../controllers/user.controller.js";
 
 const router = Router();
 
@@ -185,5 +185,46 @@ router.post("/login", loginUser);
  *         description: Unauthorized - missing or invalid token
  */
 router.get("/profile", authenticate, userProfile);
+
+
+/**
+ * @swagger
+ * /api/users/profile:
+ *   patch:
+ *     summary: Update the authenticated user's profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       description: Fields to update in user profile
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: newusername
+ *               phone:
+ *                 type: string
+ *                 example: "+9779800001111"
+ *               profile_image:
+ *                 type: string
+ *                 format: uri
+ *                 example: "https://example.com/new-avatar.jpg"
+ *     responses:
+ *       200:
+ *         description: Profile successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/UserProfile'
+ *       400:
+ *         description: Invalid input data
+ *       401:
+ *         description: Unauthorized - missing or invalid token
+ */
+router.patch("/profile", authenticate, updateUserProfile);
 
 export default router;
