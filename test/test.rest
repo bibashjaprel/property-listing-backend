@@ -31,6 +31,18 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
 ###
 
+## Update user profile
+PATCH http://localhost:6969/api/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+
+{
+  "username": "bibasjaprel_updateds",
+  "role": "admin",
+  "profile_image": "https://www.bibashjaprel.com.np/images/aboutsecphoto%20(2).jpg"
+}
+###
+
 
 ## Listing routes
 
@@ -65,3 +77,35 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZ
   },
   "expires_at": "2025-12-31T23:59:59Z"
 }
+###
+
+## Update a listing
+PATCH http://localhost:6969/api/listings/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+
+{
+  "title": "Updated 3 BHK Apartment in Kathmanduaaa",
+  "description": "Updated description for the spacious 3 bedroom apartment in Lazimpat",
+  "category": "apartment",
+  "price": 16000000,
+  "price_type": "monthly",
+  "address": {
+    "city": "Kathmandu",
+    "street": "Lazimpat",
+    "house_no": "45A"
+  },
+  "latitude": 27.7172,
+  "longitude": 85.324,
+  "features": {
+    "parking": true,
+    "balcony": true,
+    "furnished": true
+  },
+  "expires_at": "2025-12-31T23:59:59Z"
+}
+###
+DELETE http://localhost:6969/api/listings/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+###
