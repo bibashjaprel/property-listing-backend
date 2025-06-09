@@ -5,6 +5,13 @@ This is the REST API for a Real Estate application that supports user registrati
 
 ---
 
+## Swagger docs
+
+```
+http://localhost:6969/api-docs
+```
+
+---
 ## Base URL
 
 ```
