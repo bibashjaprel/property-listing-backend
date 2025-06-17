@@ -43,7 +43,7 @@ model Listing {
   payments    payments[]
   reports     reports[]
 
-  @@map("listings") // Map to the "Listing" table in the database
+  @@map("listings")
 }
 
 model payments {
@@ -87,5 +87,5 @@ model User {
   payments      payments[]
   reports       reports[]
 
-  @@map("users") // Map to the "users" table in the database
+  @@map("users")
 }
