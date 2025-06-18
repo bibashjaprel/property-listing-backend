@@ -5,11 +5,15 @@ import adminRouter from './routes/admin.route.js';
 import dotenv from 'dotenv';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 dotenv.config();
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors()); // Enable CORS for all routes
 
 // Swagger options
 const swaggerOptions = {

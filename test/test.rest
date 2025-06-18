@@ -44,8 +44,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZ
 
 
 ## Listing routes
-
-GET http://localhost:6969/api/listings
+## Get active listings
+GET http://localhost:6969/api/listings?page=1&limit=09
 ###
 
 GET http://localhost:6969/api/listings/1

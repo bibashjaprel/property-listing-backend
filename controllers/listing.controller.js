@@ -3,13 +3,33 @@ const prisma = new PrismaClient();
 
 export const getListing = async (req, res) => {
   try {
-    const listings = await prisma.listing.findMany({});
-    res.status(200).json(listings);
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 9
+    const skip = (page - 1) * limit
+
+    const [listings, totalCount] = await Promise.all([
+      prisma.listing.findMany({
+        skip,
+        take: limit,
+        orderBy: { created_at: 'desc' },
+      }),
+      prisma.listing.count(),
+    ])
+
+    const totalPages = Math.ceil(totalCount / limit)
+
+    res.status(200).json({
+      listings,
+      totalPages,
+      currentPage: page,
+      totalCount,
+    })
   } catch (error) {
-    console.error('Error fetching listings:', error);
-    res.status(500).json({ error: 'Failed to fetch listings' });
+    console.error('Error fetching listings:', error)
+    res.status(500).json({ error: 'Failed to fetch listings' })
   }
-};
+}
+
 
 export const createListing = async (req, res) => {
   try {

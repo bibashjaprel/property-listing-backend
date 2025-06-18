@@ -87,17 +87,44 @@ const router = Router();
  * @swagger
  * /api/listings:
  *   get:
- *     summary: Get all listings
+ *     summary: Get all listings (with pagination)
  *     tags: [Listings]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 9
+ *         description: Number of listings per page
  *     responses:
  *       200:
- *         description: List of all real estate listings
+ *         description: Paginated list of real estate listings
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Listing'
+ *               type: object
+ *               properties:
+ *                 listings:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Listing'
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 5
+ *                 currentPage:
+ *                   type: integer
+ *                   example: 1
+ *                 totalCount:
+ *                   type: integer
+ *                   example: 45
+ *       500:
+ *         description: Server error while fetching listings
  * 
  *   post:
  *     summary: Create a new listing
@@ -121,6 +148,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized - missing or invalid token
  */
+
 
 /**
  * @swagger
