@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "username": "bibasjaprel",
-    "email": "bibashjaprel111@gmail.com",
+    "email": "bibashjaprel1111@gmail.com",
     "password": "securePassword",
     "role": "user"
 }
@@ -28,7 +28,7 @@ Content-Type: application/json
 ## Get user profile
 GET http://localhost:6969/api/users/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDg3MDMyMzksImV4cCI6MTc0OTMwODAzOX0.N4JX7_yAgG9OjGE7AcEIhPRE3dDgBlDj0vzz6_ZDlMU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwNCwiZW1haWwiOiJiaWJhc2hqYXByZWwxMTFAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NTAyNDMxMzgsImV4cCI6MTc1MDg0NzkzOH0.Deirwbm50wW88o6_geaw-1hMkvlWllPF--LyleJENKc
 ###
 
 ## Update user profile
